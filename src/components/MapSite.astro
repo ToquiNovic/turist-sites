@@ -1,0 +1,41 @@
+---
+import {sites} from "@touristSites"
+
+const { labelToShow } = Astro.props;
+const siteToShow = sites.find(site => site.label === labelToShow);
+---
+
+<div id="leafletmap" data-longitud={siteToShow?.location.longitud} data-latitud={siteToShow?.location.latitud} style="width: 100%; height: 400px;"></div>
+
+<script>
+ import 'leaflet/dist/leaflet.css';
+ import * as L from 'leaflet';
+
+ const streets = L.tileLayer(
+ "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+ {
+    attribution:
+      'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: "mapbox/streets-v11",
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken:
+      "pk.eyJ1IjoidG9xdWlub3ZpYyIsImEiOiJjbGdiZ3VhZmMwaGdnM2Vud2Z2aWJjbnBiIn0.0D301Nbyl2uxrRs5Iic0mA",
+ }
+);
+
+ document.addEventListener('DOMContentLoaded', () => {
+    const longitud = document.getElementById('leafletmap')?.dataset.longitud;
+    const latitud = document.getElementById('leafletmap')?.dataset.latitud;
+    const latmunber = Number(latitud);
+    const longnumber = Number(longitud);
+    const map = L.map('leafletmap').setView([latmunber, longnumber], 13);
+
+    streets.addTo(map);
+    
+    L.marker([latmunber, longnumber]).addTo(map);
+ });
+</script>

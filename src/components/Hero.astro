@@ -1,0 +1,52 @@
+---
+import Badge from "@/components/Badge.astro"
+import FlyIcon from "@/components/icons/Fly.astro"
+import SocialPill from "@/components/SocialPill.astro"
+
+import {sites} from "@touristSites"
+
+const { labelToShow } = Astro.props;
+const siteToShow = sites.find(site => site.label === labelToShow);
+---
+
+<div class="max-w-xl">
+ <div class="flex gap-4 mb-4">
+    {siteToShow && (
+      <>
+        <img
+          class="rounded-full shadow-lg size-16"
+          src={siteToShow.img}
+          alt={siteToShow.nameSite}
+        />
+        <a
+          href={siteToShow.website}
+          target="_blank"
+          rel="noopener"
+          class="flex items-center transition md:justify-center md:hover:scale-105"
+        >
+          <Badge>{siteToShow.country}, {siteToShow.city}</Badge>
+        </a>
+      </>
+    )}
+ </div>
+ <h1
+    class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
+ >
+ {siteToShow && siteToShow.nameSite}
+ </h1>
+ <p
+    class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
+ >
+    {siteToShow && siteToShow.summary}
+ </p>
+ <nav class="flex flex-wrap gap-4 mt-8">
+    {siteToShow && (
+      <>
+        <SocialPill href={siteToShow.website}>
+          <FlyIcon class="size-4" />
+          Visitar
+        </SocialPill>
+      </>
+    )}
+ </nav>
+</div>

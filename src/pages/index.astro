@@ -1,0 +1,46 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+import PlayIcon from "@/components/icons/Play.astro";
+import MapIcon from "@/components/icons/Map.astro";
+import Videos from "@/components/Videos.astro";
+import MapSite from "@/components/MapSite.astro";
+import SectionContainer from "@/components/SectionContainer.astro";
+import Hero from "@/components/Hero.astro";
+import { status } from "@touristSites";
+
+const label = status;
+console.log(status);
+---
+
+<Layout
+  title="Sitios Turisticos del Caqueta"
+  description="Web para mostrar sitios turisticos del Caqueta obtenidos con un robot e inteligencia artificial"
+>
+<main class="px-4">
+  <SectionContainer id="home" class="py-12 md:py-24">
+    <Hero labelToShow = {label}/>
+  </SectionContainer>
+</main>
+<div class="space-y-8">
+  <SectionContainer id="video">
+    <h2
+      class="flex items-center mb-6 text-3xl font-semibold gap-x-2 text-black/80 dark:text-white"
+    >
+      <PlayIcon class="size-7" />
+      Video
+    </h2>
+    <Videos labelToShow = {label}/>
+  </SectionContainer>
+
+  <SectionContainer id="ubicacion">
+    <h2
+      class="flex items-center mb-6 text-3xl font-semibold gap-x-2 text-black/80 dark:text-white"
+    >
+      <MapIcon class="size-8" />
+      Ubicacion
+    </h2>
+    <MapSite labelToShow = {label}/>    
+  </SectionContainer>
+</div>
+</Layout>
